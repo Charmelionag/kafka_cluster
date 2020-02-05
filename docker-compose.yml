@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  node-1:
+    container_name: node-1
+    image: kafka:6
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    environment:
+      - ID=1
+    networks:
+      nodes-net:
+        ipv4_address: 172.19.0.10
+
+  node-2:
+    container_name: node-2
+    image: kafka:6
+    ports:
+      - "2182:2181"
+      - "2889:2888"
+      - "3889:3888"
+    environment:
+      - ID=2
+    networks:
+      nodes-net:
+        ipv4_address: 172.19.1.10
+    depends_on:
+      - node-1
+
+  node-3:
+    container_name: node-3
+    image: kafka:6
+    ports:
+      - "2183:2181"
+      - "2890:2888"
+      - "3890:3888"
+    environment:
+      - ID=3
+    networks:
+      nodes-net:
+        ipv4_address: 172.19.2.10
+    depends_on:
+      - node-2
+
+networks:
+  nodes-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16

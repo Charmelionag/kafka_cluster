@@ -1,0 +1,29 @@
+node-2:
+  container_name: node-2
+  image: kafka:test
+  ports:
+    - "2182:2181"
+    - "2889:2888"
+    - "3889:3888"
+  environment:
+    - ID=2
+  networks:
+    nodes-net:
+      ipv4_address: 172.19.1.10
+  depends_on:
+    - node-1
+
+node-3:
+  container_name: node-3
+  image: kafka:test
+  ports:
+    - "2183:2181"
+    - "2890:2888"
+    - "3890:3888"
+  environment:
+    - ID=3
+  networks:
+    nodes-net:
+      ipv4_address: 172.19.2.10
+  depends_on:
+    - node-2
