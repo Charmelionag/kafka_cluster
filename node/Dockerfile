@@ -11,15 +11,21 @@ rm kafka_2.12-0.10.2.1.tgz && \
 mv kafka_2.12-0.10.2.1 kafka
 
 COPY zookeeper /etc/init.d/zookeeper
+COPY kafka /etc/init.d/kafka
 COPY deploy.sh /root
 RUN chown root:root /etc/init.d/zookeeper
+RUN chown root:root /etc/init.d/kafka
 RUN update-rc.d zookeeper defaults
+RUN update-rc.d kafka defaults
 RUN echo "\nexport PATH=$PATH:/root/kafka/bin" >> /root/.bashrc
+RUN echo "* hard nofile 100000\n* soft nofile 100000" | tee --append /etc/security/limits.conf
 RUN mkdir -p kafka/data/zookeeper
 
-EXPOSE 22 2181 2888 3888
+EXPOSE 22 2181 2888 3888 9092
 
 WORKDIR /root/kafka
 RUN rm config/zookeeper.properties
 COPY zookeeper.properties config/zookeeper.properties
+RUN rm config/server.properties
+COPY server.properties config/server.properties
 CMD /root/deploy.sh
