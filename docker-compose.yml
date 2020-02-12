@@ -3,7 +3,7 @@ version: '3.3'
 services:
   node-1:
     container_name: node-1
-    image: kafka_cluster:2
+    image: kc:3
     ports:
       - "2181:2181"
       - "2888:2888"
@@ -18,7 +18,7 @@ services:
 
   node-2:
     container_name: node-2
-    image: kafka_cluster:2
+    image: kc:3
     ports:
       - "2182:2181"
       - "2889:2888"
@@ -35,7 +35,7 @@ services:
 
   node-3:
     container_name: node-3
-    image: kafka_cluster:2
+    image: kc:3
     ports:
       - "2183:2181"
       - "2890:2888"

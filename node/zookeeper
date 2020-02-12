@@ -20,7 +20,7 @@ case "$1" in
             echo "Zookeeper is already running";
         else
           echo "Starting $DAEMON_NAME";
-          $DAEMON_PATH/zookeeper-server-start.sh -daemon /home/ubuntu/kafka/config/zookeeper.properties
+          $DAEMON_PATH/zookeeper-server-start.sh -daemon /root/kafka/config/zookeeper.properties
         fi
         ;;
   stop)
